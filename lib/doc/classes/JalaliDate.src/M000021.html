@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>step (JalaliDate)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File jalali_date.rb, line 111</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">step</span>(<span class="ruby-identifier">limit</span>, <span class="ruby-identifier">step</span>=<span class="ruby-value">1</span>) 
+    <span class="ruby-identifier">da</span> = <span class="ruby-keyword kw">self</span>
+    <span class="ruby-identifier">op</span> = <span class="ruby-node">%w(- &lt;= &gt;=)</span>[<span class="ruby-identifier">step</span> <span class="ruby-operator">&lt;=&gt;</span> <span class="ruby-value">0</span>]
+    <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">da</span>.<span class="ruby-identifier">__send__</span>(<span class="ruby-identifier">op</span>, <span class="ruby-identifier">limit</span>)
+      <span class="ruby-keyword kw">yield</span> <span class="ruby-identifier">da</span>
+      <span class="ruby-identifier">da</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">step</span>
+    <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">self</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>&gt;&gt; (JalaliDate)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File jalali_date.rb, line 91</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-operator">&gt;&gt;</span>(<span class="ruby-identifier">months</span>)
+          <span class="ruby-identifier">y</span>, <span class="ruby-identifier">m</span> = (<span class="ruby-ivar">@year</span> <span class="ruby-operator">*</span> <span class="ruby-value">12</span> <span class="ruby-operator">+</span> (<span class="ruby-ivar">@month</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">months</span>).<span class="ruby-identifier">divmod</span>(<span class="ruby-value">12</span>)
+    <span class="ruby-identifier">m</span>,   = (<span class="ruby-identifier">m</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>)                    .<span class="ruby-identifier">divmod</span>(<span class="ruby-value">1</span>)
+    <span class="ruby-identifier">d</span> = <span class="ruby-ivar">@day</span>
+    <span class="ruby-identifier">d</span> <span class="ruby-operator">-=</span> <span class="ruby-value">1</span> <span class="ruby-keyword kw">until</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">valid_date?</span>(<span class="ruby-identifier">y</span>, <span class="ruby-identifier">m</span>, <span class="ruby-identifier">d</span>)
+    <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">y</span>,<span class="ruby-identifier">m</span>,<span class="ruby-identifier">d</span>)
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>
