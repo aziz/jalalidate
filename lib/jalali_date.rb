@@ -1,11 +1,10 @@
 # :title:JalaliDate
 #
 class JalaliDate
+	require 'jcode'
+
 	#:stopdoc:
 	$KCODE = 'u'
-	require 'jcode'
-	include Comparable
-	
 	GDaysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 	JDaysInMonth = [31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29]
 	PERSIAN_MONTH_NAMES = [nil, "فروردین","اردیبهشت","خرداد","تیر","مرداد","شهریور","مهر","آبان","آذر","دی","بهمن","اسفند"]
@@ -14,6 +13,8 @@ class JalaliDate
 	PERSIAN_MERIDIAN_INDICATOR = ["قبل از ظهر","بعد از ظهر"]
 	PERSIAN_ABBR_MERIDIAN_INDICATOR = ["ق.ظ","ب.ظ"]
 	#:startdoc:
+
+	include Comparable
 	
 	attr_accessor :year,:month,:day
 	attr_reader :g_year, :g_month, :g_day
