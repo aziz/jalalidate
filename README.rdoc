@@ -1,5 +1,8 @@
 = Jalali Date Library
 
+== Install 
+  gem install jalalidate
+
 == History
 
 ==== 0.2 - 25.FEB.2010
