@@ -83,6 +83,45 @@ describe JalaliDate do
     jdate.previous.should == JalaliDate.new(1388,10,10)
   end
   
+  it "should be able to move the month forward and backward" do
+    jdate = JalaliDate.new(1388,10,11)
+    five_month_later = jdate >> 5
+    five_month_ago = jdate << 5
+    five_month_later.should == JalaliDate.new(1389,3,11)
+    five_month_ago.should == JalaliDate.new(1388,5,11)
+  end
   
+  it "should be able to cycle through dates in different ways, namely, step, upto and downto" do
+    jdate = JalaliDate.new(1388,10,10)
+    
+    days_string = ""
+    jdate.step( jdate + 10 , 2) do |jd|
+      days_string += jd.day.to_s
+    end
+    days_string.should == "101214161820"
+
+    days_string = ""
+    jdate.upto(jdate+5) do |jd|
+      days_string += jd.day.to_s
+    end
+    days_string.should == "101112131415"
+    
+    days_string = ""
+    jdate.downto(jdate-5) do |jd|
+      days_string += jd.day.to_s
+    end
+    days_string.should == "1098765"
+  end
+
+  it "should return a correct year day based on Jalali Calendar" do
+    JalaliDate.new(1388,1,1).yday.should == 1
+    JalaliDate.new(1388,12,29).yday.should == 365
+    JalaliDate.new(1387,12,30).yday.should == 366
+    JalaliDate.new(1388,9,17).yday.should == 263
+  end
+
+  it "should be able to print jalali date in different formats" do
+    JalaliDate.new(1388,1,7).format("%a %A %b %B %d %j %m %w %y %Y %% %x").should == "ج جمعه فروردین فروردین 7 7 1 5 88 1388 % 88/1/7"
+  end
 
 end

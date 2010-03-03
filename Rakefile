@@ -16,6 +16,7 @@ begin
     gem.has_rdoc = true
     gem.extra_rdoc_files = ["README.rdoc","LICENSE"]
     gem.add_development_dependency "rspec", ">= 1.2.9"
+    gem.rdoc_options << "--charset" << "utf-8"    
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
@@ -68,8 +69,9 @@ require 'rake/rdoctask'
 Rake::RDocTask.new do |rdoc|
   version = File.exist?('VERSION') ? File.read('VERSION') : ""
 
+  rdoc.options << "--charset" << "utf-8"
   rdoc.rdoc_dir = 'rdoc'
   rdoc.title = "jalalidate #{version}"
-  rdoc.rdoc_files.include('README*')
+  rdoc.rdoc_files.include(['README.rdoc','LICENSE'])
   rdoc.rdoc_files.include('lib/**/*.rb')
 end

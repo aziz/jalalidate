@@ -23,6 +23,10 @@ class JalaliDate
   # Can be initialized in two ways:
   # - First by feeding 3 arguments for Jalali Date, year,month and day.
   # - The Second way to initializes is to pass a normal Ruby Date object, it'll be converted to jalali automatically.
+  # 
+  # Example:
+  #   jdate = JalaliDate.new(Date.today)
+  #   other_jdate = JalaliDate.new(1388,9,17)
   def initialize *args
     if (args.size == 1) && (args.first.is_a? Date)
       year,month,day = gregorian_to_jalali(args.first.year, args.first.month, args.first.day) 
@@ -135,8 +139,14 @@ class JalaliDate
     self >> -months
   end
   
-  # Step the current date forward step days at a time (or backward, if step is negative) until we reach 
-  # limit (inclusive), yielding the resultant date at each step. 
+  # Step the current date forward +step+ days at a time (or backward, if step is negative) until we reach 
+  # limit (inclusive), yielding the resultant date at each step.
+  #
+  # Example:
+  #   jdate = JalaliDate.new(Date.today)
+  #   jdate.step(Date.today+10, 2) do |jd|
+  #     puts jd.to_s
+  #   end
   def step(limit, step=1) 
     da = self
     op = %w(- <= >=)[step <=> 0]
@@ -147,21 +157,37 @@ class JalaliDate
     self
   end
   
-  # Step forward one day at a time until we reach max (inclusive), yielding each date as we go. 
-  def upto(max, &block) step(max, +1, &block) end
-  
+  # Step forward one day at a time until we reach max (inclusive), yielding each date as we go.
+  #
+  # Example:
+  #   jdate = JalaliDate.new(Date.today)
+  #   days_string = ""
+  #   jdate.upto(jdate+5) do |jd|
+  #     days_string += jd.day.to_s
+  #   end
+  def upto(max, &block)
+    step(max, +1, &block)
+  end
+
   # Step backward one day at a time until we reach min (inclusive), yielding each date as we go. 
-  def downto(min, &block) step(min, -1, &block) end
-  
-  # Is this a leap year? 
-  def leap?() self.class.leap?(@year) end
-  
-  # Get the week day of this date. Sunday is day-of-week 0; Saturday is day-of-week 6. 
-  def wday() to_g.wday end
-  
+  # See #upto for the example.
+  def downto(min, &block)
+    step(min, -1, &block)
+  end
+
+  # Is this a leap year?
+  def leap?
+    self.class.leap?(@year)
+  end
+
+  # Get the week day of this date. Sunday is day-of-week 0; Saturday is day-of-week 6.
+  def wday
+    to_g.wday
+  end
+
   # Get the day-of-the-year of this date.
   # Farvardin 1 is day-of-the-year 1
-  def yday() 
+  def yday
     m = (@month-2 < 0) ? 0 : @month-2
     (@month==1) ? @day : @day + JDaysInMonth[0..m].inject(0) {|sum, n| sum + n } 
   end  
@@ -169,22 +195,23 @@ class JalaliDate
   # Formats time according to the directives in the given format string. Any text not listed as a directive will be 
   # passed through to the output string.
   #
-  # Format meaning:
+  # Format meanings:
   #
-  #<tt>%a - The abbreviated weekday name (۳ش)</tt>
-  #<tt>%A - The full weekday name (یکشنبه)</tt>
-  #<tt>%b or %B - The month name (اردیبهشت)</tt>
-  #<tt>%d - Day of the month (1..31)</tt>
-  #<tt>%j - Day of the year (1..366)</tt>
-  #<tt>%m - Month of the year (1..12)</tt>
-  #<tt>%w - Day of the week (Sunday is 0, 0..6)</tt>
-  #<tt>%x - Preferred representation for the date alone, no time in format YY/M/D</tt>
-  #<tt>%y - Year without a century (00..99)</tt>
-  #<tt>%Y - Year with century</tt>
-  #<tt>%% - Literal %'' character</tt>
-
-  # d = JalaliDate.today
-  # d.strftime("Printed on %Y/%m/%d")   #=> "Printed on 87/5/26
+  # [%a]  The abbreviated weekday name (۳ش)
+  # [%A]  The full weekday name (یکشنبه)
+  # [%b or %B]   The month name (اردیبهشت)
+  # [%d]   Day of the month (1..31)
+  # [%j]   Day of the year (1..366)
+  # [%m]   Month of the year (1..12)
+  # [%w]   Day of the week (Sunday is 0, 0..6)
+  # [%x]   Preferred representation for the date alone, no time in format YY/M/D
+  # [%y]   Year without a century (00..99)
+  # [%Y]   Year with century
+  # [%%]   Literal %'' character
+  # 
+  # Example:
+  #   d = JalaliDate.today
+  #   d.strftime("Printed on %Y/%m/%d")   #=> "Printed on 87/5/26
   def strftime(format_str = '%Y/%m/%d')
     clean_fmt = format_str.gsub(/%{2}/, "SUBSTITUTION_MARKER").
       gsub(/%a/, PERSIAN_ABBR_WEEKDAY_NAMES[wday]).
@@ -200,11 +227,9 @@ class JalaliDate
       gsub(/%x/, [@year.to_s.slice(2,2),@month,@day].join("/")).
       gsub(/#{"SUBSTITUTION_MARKER"}/, '%')
   end    
-  alias :format :strftime          
+  alias :format :strftime
   
-
   private #-------------------------------------------------------------------------
-
 
   def gregorian_to_jalali(year, month, day)
     gy = year - 1600
@@ -287,5 +312,4 @@ class JalaliDate
     [gy,gm,gd]
   end
 
-  
 end
