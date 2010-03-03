@@ -1,8 +1,0 @@
-=== History
-
-==== 0.02 - 08.AUG.2008
-* added jalali to geregorian date convertor. 
-* added JalaliDate class and ported Date class method to JalaliDate
-
-==== 0.01 - 07.AUG.2008
-* planning the project

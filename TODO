@@ -1,4 +1,6 @@
 =TODO
+
+* add rake tasks for test and bumping versions
 * wrtie test for class jalali to test all methods
 
 * clean up class method and instance methods
@@ -7,7 +9,6 @@
 * seperate date helpers
 
 remained: parse
-
 
 * GEOData: country list/province list/Counties_of_Iran/Time zone names
 * currencies
