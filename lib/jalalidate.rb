@@ -1,5 +1,5 @@
 # :title:Jalali Date #
-require 'jcode'
+require "jcode"
 require "date"
 
 class JalaliDate
@@ -41,9 +41,8 @@ class JalaliDate
     @g_year, @g_month, @g_day = jalali_to_gregorian(year,month,day)
   end
 
-  # Class Methods
-  class << self
-    
+  # Class Methods -----------------------------------------------------------
+  class << self   
     # Return a JalaliDate object representing today's date in calendar
     def today
       JalaliDate.new(Date.today)
@@ -68,15 +67,22 @@ class JalaliDate
     # Accpets three numbers for year (4 digit), month and day in jalali calendar and checks if it's a 
     # valid date according to jalali calendar or not.
     def valid?(y,m,d)
-      (y.class == Fixnum && y > 0 && 
-       m.class == Fixnum && (1..12).include?(m) && 
-       d.class == Fixnum && (((1..JDaysInMonth[m-1]).include?(d)) || (d == 30 && m == 12 && leap?(y)   )) 
+      ( y.class == Fixnum && y > 0 &&
+        m.class == Fixnum && (1..12).include?(m) &&
+        d.class == Fixnum &&
+        ( 
+          ((1..JDaysInMonth[m-1]).include?(d)) || (d == 30 && m == 12 && leap?(y))
+        ) 
       ) ? true : false
     end
   end
 
+  # Instance Methods --------------------------------------------------------
+  
   # Converts a JalaiDate object to Ruby Date object
-  def to_gregorian; Date.new(@g_year,@g_month,@g_day); end;
+  def to_gregorian 
+    Date.new(@g_year,@g_month,@g_day)
+  end
   alias :to_g :to_gregorian
 
   # Returns a string represtation of the JalaliDate object in format like this: y/m/d
