@@ -6,17 +6,15 @@ begin
   Jeweler::Tasks.new do |gem|
 
     gem.name = "jalalidate"
-    gem.version = "0.2.0"
+    gem.version = "0.2.1"
     gem.authors = ["Aziz A. Bargi"]
     gem.email = "aziz.bargi@gmail.com"
     gem.rubyforge_project = 'JalaliDate'  
     gem.homepage = "http://github.com/aziz/jalalidate"
-    gem.summary = "A port of class Date in ruby that works based on Jalali Calendar (a.k.a Persian Calendar)"
-    gem.require_path = "lib"
+    gem.summary = "A library for working with Jalali Calendar (a.k.a Persian Calendar)"
     gem.has_rdoc = true
     gem.extra_rdoc_files = ["README.rdoc","LICENSE"]
     gem.add_development_dependency "rspec", ">= 1.2.9"
-    gem.rdoc_options << "--charset" << "utf-8"    
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
