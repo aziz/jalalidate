@@ -1,5 +1,6 @@
 # :title:Jalali Date #
 require 'jcode'
+require "date"
 
 class JalaliDate
 
@@ -15,49 +16,43 @@ class JalaliDate
   #:startdoc:
 
   include Comparable
-  
+
   attr_accessor :year,:month,:day
   attr_reader :g_year, :g_month, :g_day
-  
+
+  # Can be initialized in two ways:
+  # - First by feeding 3 arguments for Jalali Date, year,month and day.
+  # - The Second way to initializes is to pass a normal Ruby Date object, it'll be converted to jalali automatically.
   def initialize *args
-    
     if (args.size == 1) && (args.first.is_a? Date)
       year,month,day = gregorian_to_jalali(args.first.year, args.first.month, args.first.day) 
     else 
       year,month,day = args
     end
     
-    raise ArgumentError, "invalid arguments or invalid Jalali date" unless self.class.valid_date?(year,month,day) 
+    raise ArgumentError, "invalid arguments or invalid Jalali date" unless self.class.valid?(year,month,day) 
     @year = year
     @month = month
     @day = day
     @g_year, @g_month, @g_day = jalali_to_gregorian(year,month,day)
   end
-  
+
   # Class Methods
   class << self
     
-    # Return a new JalaliDate object but accept a Ruby Date object as the parameter, 
-    # rather than 3 values for jalali year, jalali month and jalali date (which is what JalaliDate#new does). 
-    def build(date)
-      g_to_j(date)
-    end
-
     # Return a JalaliDate object representing today's date in calendar
-    def today(date = Time.now)
-      g_to_j(date)
+    def today
+      JalaliDate.new(Date.today)
     end
 
     # Return a JalaliDate object representing yesterday's date in calendar
     def yesterday
-      tod = Time.now
-      today(Date.new(tod.year,tod.month,tod.day) - 1)
+      JalaliDate.new(Date.today - 1)
     end
 
     # Return a JalaliDate object representing tomorrow's date in calendar
     def tomorrow  
-      tod = Time.now
-      today(Date.new(tod.year,tod.month,tod.day) + 1)
+      JalaliDate.new(Date.today + 1)
     end
 
     # Accpets a four digit number as the jalaliyear and returns true if that particular year 
@@ -68,58 +63,78 @@ class JalaliDate
 
     # Accpets three numbers for year (4 digit), month and day in jalali calendar and checks if it's a 
     # valid date according to jalali calendar or not.
-    def valid_date?(y,m,d)
+    def valid?(y,m,d)
       (y.class == Fixnum && y > 0 && 
        m.class == Fixnum && (1..12).include?(m) && 
        d.class == Fixnum && (((1..JDaysInMonth[m-1]).include?(d)) || (d == 30 && m == 12 && leap?(y)   )) 
       ) ? true : false
     end
-
   end
-  
-  
-  
+
   # Converts a JalaiDate object to Ruby Date object
   def to_gregorian; Date.new(@g_year,@g_month,@g_day); end;
   alias :to_g :to_gregorian
-  
+
   # Returns a string represtation of the JalaliDate object in format like this: y/m/d
-  def to_s() [@year,@month,@day].join("/") end
-  
+  def to_s 
+    [@year,@month,@day].join("/") 
+  end
+
   # Returns a hash in a format like this: {:year => @year, :month => @month, :day => @day}
-  def to_hash() {:year => @year, :month => @month, :day => @day} end
-  
+  def to_hash
+    {:year => @year, :month => @month, :day => @day}
+  end
+
   # Returns an array in a format like this: [y,m,d]
-  def to_a() [@year,@month,@day] end
+  def to_a
+    [@year,@month,@day]
+  end
+
+  # Return internal object state as a programmer-readable string. 
+  def inspect
+    "#<#{self.class}:#{self.object_id}, :year => #{@year}, :month => #{@month}, :day => #{@day} >" 
+  end
 
   # Adds n days to the current JalaliDate object
-  def +(days) self.class.g_to_j( to_g + days ) end
+  def +(days)
+    self.class.new( to_g + days )
+  end
   
   # Subtracts n days from the current JalaliDate object
-  def -(days) self.class.g_to_j( to_g - days ) end
+  def -(days)
+    self.class.new( to_g - days )
+  end
+  
+  # Return the next day for the current JalaliDate object
+  def next(n=1)
+    self + n 
+  end
+  alias :succ :next
+  
+  # Return the previous day for the current JalaliDate object
+  def previous(n=1) 
+    self - n 
+  end  
   
   # Compares two JalaliDate objects. acts like Date#<=>
-  def <=>(other) to_g <=> other.to_g  end
+  def <=>(other)
+    to_g <=> other.to_g  
+  end
 
   # Move JalaliDate object forward by n months
   def >>(months)
     y, m = (@year * 12 + (@month - 1) + months).divmod(12)
     m,   = (m + 1)                    .divmod(1)
     d = @day
-    d -= 1 until self.class.valid_date?(y, m, d)
+    d -= 1 until self.class.valid?(y, m, d)
     self.class.new(y,m,d)
   end
   
   # Move JalaliDate object backward by n months 
-  def <<(months) self >> -months end
+  def <<(months)
+    self >> -months
+  end
   
-  # Return the next day for the current JalaliDate object
-  def next(n=1) self + n end
-  
-  # Return the previous day for the current JalaliDate object
-  def previous(n=-1) self - n end
-  alias :succ :next
-
   # Step the current date forward step days at a time (or backward, if step is negative) until we reach 
   # limit (inclusive), yielding the resultant date at each step. 
   def step(limit, step=1) 
@@ -137,9 +152,6 @@ class JalaliDate
   
   # Step backward one day at a time until we reach min (inclusive), yielding each date as we go. 
   def downto(min, &block) step(min, -1, &block) end
-  
-  # Return internal object state as a programmer-readable string. 
-  def inspect() "#<%#{self.class}: :year => #{@year} , :month => #{@month} , :day => #{@day} >" end
   
   # Is this a leap year? 
   def leap?() self.class.leap?(@year) end
@@ -275,16 +287,5 @@ class JalaliDate
     [gy,gm,gd]
   end
 
-  # Accept a Date or Time object and return a JalaliDate object
-  def self.g_to_j(date)
-    y,m,d = gregorian_to_jalali(date.year, date.month, date.day)
-    JalaliDate.new(y,m,d)
-  end
-
-  # Accept a JalaliDate and return a Ruby Date object
-  def self.j_to_g(date)
-    y,m,d = jalali_to_gregorian(date.year, date.month, date.day)
-    Date.new(y,m,d)
-  end
   
 end
