@@ -1,3 +1,8 @@
 =TODO
 * jalali_strftime: Add support for localized time zone names(%z) and add week number of the year %W and %U
 * Add rails active support date calculation for jalali
+
+
+* add a executive file
+* update read me 
+
