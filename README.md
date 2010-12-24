@@ -1,25 +1,25 @@
-= Jalali Date Library
+# Jalali Date Library
 
-== Install 
+## Install 
   gem install jalalidate
 
-== History
+## History
 
-==== 0.2 - 25.FEB.2010
+#### 0.2 - 25.FEB.2010
 * renamed the gem from JalaliDate to jalalidate
 * added spec and a full test suite
 * updated gemspec file for rubygems.org
 * updated some documentations
 
-==== 0.02 - 08.AUG.2008
+#### 0.02 - 08.AUG.2008
 * added jalali to geregorian date convertor.
 * added JalaliDate class and ported Date class method to JalaliDate
 
-==== 0.01 - 07.AUG.2008
+#### 0.01 - 07.AUG.2008
 * planning the project
 
 
-== Note on Patches/Pull Requests
+## Note on Patches/Pull Requests
  
 * Fork the project.
 * Make your feature addition or bug fix.
@@ -29,6 +29,6 @@
   (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
 * Send me a pull request. Bonus points for topic branches.
 
-== Copyright
+## Copyright
 
-Copyright (c) 2008-2010 Aziz A. Bargi. See LICENSE for details.
+Copyright (c) 2008-2011 Allen A. Bargi. See LICENSE for details.
