@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.email                     = %q{allen.bargi@gmail.com}
   s.homepage                  = %q{http://github.com/aziz/jalalidate}
   s.summary                   = %q{A library for working with Jalali Calendar (a.k.a Persian Calendar)}
-  s.description               = %q{TODO: Write a gem description}
+  s.description               = %q{A library for working with Jalali Calendar (a.k.a Persian Calendar)}
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.rubyforge_project         = "jalalidate"
   s.files                     = `git ls-files`.split("\n")
