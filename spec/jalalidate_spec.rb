@@ -121,7 +121,7 @@ describe JalaliDate do
   end
 
   it "should be able to print jalali date in different formats" do
-    JalaliDate.new(1388,1,7).strftime("%a %A %b %B %d %e %j %m %w %y %Y %% %x").should == "ج جمعه فروردین فروردین 07 7 7 1 5 88 1388 % 88/1/7"
+    JalaliDate.new(1388,1,7).strftime("%a %A %b %B %d %e %j %m %w %y %Y %% %x").should == "ج  جمعه فروردین Farvardin 07 7 7 1 5 88 1388 % 88/1/7"
   end
 
   it "should be intialize with a time object" do
