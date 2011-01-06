@@ -5,6 +5,13 @@
 
 ## History
 
+#### 0.3 - 6.JAN.2011
+* JalaiDate could be initialized with Time and DateTime objects
+* more options for strftime method %H,%M,%S,%X,%Z,%I,%p. read docs for more information
+* added jdate and jcal binaries to access jcal from the command-line
+* updated some documentations
+* now using bundler
+
 #### 0.2 - 25.FEB.2010
 * renamed the gem from JalaliDate to jalalidate
 * added spec and a full test suite

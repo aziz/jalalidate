@@ -3,4 +3,4 @@ $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 require 'jalalidate'
 require 'jalalidate/cli'
 
-Jalalidate::Cli.jdate(*ARGV)
+Jalalidate::Cli.jcal(*ARGV)
