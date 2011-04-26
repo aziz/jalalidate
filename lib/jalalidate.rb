@@ -1,11 +1,14 @@
+# encoding: utf-8
 # :title:Jalali Date #
-require "jcode"
+if RUBY_VERSION < '1.9'
+  require "jcode"
+  $KCODE = 'u'
+end
 require "date"
 
 class JalaliDate
 
   #:stopdoc:
-  $KCODE = 'u'
   GDaysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
   JDaysInMonth = [31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29]
   PERSIAN_MONTH_NAMES = [nil, "فروردین","اردیبهشت","خرداد","تیر","مرداد","شهریور","مهر","آبان","آذر","دی","بهمن","اسفند"]
