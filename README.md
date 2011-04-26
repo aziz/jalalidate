@@ -5,25 +5,28 @@
 
 ## History
 
+#### 0.3.1 - 26.APR.2011
+* Added ruby 1.9 compatibility, courtesy of [Reza](https://github.com/ryco)
+
 #### 0.3 - 6.JAN.2011
 * JalaiDate could be initialized with Time and DateTime objects
-* more options for strftime method %H,%M,%S,%X,%Z,%I,%p. read docs for more information
-* added jdate and jcal binaries to access jcal from the command-line
-* updated some documentations
-* now using bundler
+* More options for strftime method %H,%M,%S,%X,%Z,%I,%p. read docs for more information
+* Added jdate and jcal binaries to access jcal from the command-line
+* Updated some documentations
+* Now using bundler
 
 #### 0.2 - 25.FEB.2010
-* renamed the gem from JalaliDate to jalalidate
-* added spec and a full test suite
-* updated gemspec file for rubygems.org
-* updated some documentations
+* Renamed the gem from JalaliDate to jalalidate
+* Added spec and a full test suite
+* Updated gemspec file for rubygems.org
+* Updated some documentations
 
 #### 0.02 - 08.AUG.2008
-* added jalali to geregorian date convertor.
-* added JalaliDate class and ported Date class method to JalaliDate
+* Added jalali to geregorian date convertor.
+* Added JalaliDate class and ported Date class method to JalaliDate
 
 #### 0.01 - 07.AUG.2008
-* planning the project
+* Planning the project
 
 
 ## Note on Patches/Pull Requests
