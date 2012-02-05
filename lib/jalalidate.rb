@@ -5,6 +5,7 @@ if RUBY_VERSION < '1.9'
   $KCODE = 'u'
 end
 require "date"
+require "parsi_digits"
 
 class JalaliDate
 
@@ -263,7 +264,7 @@ class JalaliDate
   # Example:
   #   d = JalaliDate.today
   #   d.strftime("Printed on %Y/%m/%d")   #=> "Printed on 87/5/26
-  def strftime(format_str = '%Y/%m/%d')
+  def strftime(format_str = '%Y/%m/%d', options={})
     clean_fmt = format_str.gsub(/%{2}/, "SUBSTITUTION_MARKER").
       gsub(/%a/, PERSIAN_ABBR_WEEKDAY_NAMES[wday]).
       gsub(/%A/, PERSIAN_WEEKDAY_NAMES[wday]).
@@ -285,6 +286,7 @@ class JalaliDate
       gsub(/%X/, [("%02d" % @hour),("%02d" % @min),("%02d" % @sec)].join(":")).
       gsub(/%x/, [@year.to_s.slice(2,2),@month,@day].join("/")).
       gsub(/#{"SUBSTITUTION_MARKER"}/, '%')
+    options.fetch(:with_parsi_digits, false) ? clean_fmt.with_parsi_digits : clean_fmt
   end
   alias :format :strftime
 
@@ -371,4 +373,13 @@ class JalaliDate
     [gy,gm,gd]
   end
 
+end
+
+[Date, DateTime, Time].each do |klass|
+  klass.class_eval do
+    def to_jalali
+      JalaliDate.new self
+    end
+    alias :to_j :to_jalali
+  end
 end
