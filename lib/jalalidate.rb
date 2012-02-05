@@ -24,13 +24,19 @@ class JalaliDate
   attr_accessor :year,:month,:day, :hour, :min, :sec
   attr_reader :g_year, :g_month, :g_day
 
-  # Can be initialized in two ways:
+  # Can be initialized in three ways:
   # - First by feeding 3 arguments for Jalali Date, year,month and day.
   # - The Second way to initializes is to pass a normal Ruby Date object, it'll be converted to jalali automatically.
+  # - The third way to initialize is to pass a String in one of the fallowing formats:
+  #   - "year/month/day"
+  #   - "year-month-day"
+  #   - "year month day"
+  #   you can use pari digits in this case
   #
   # Example:
   #   jdate = JalaliDate.new(Date.today)
   #   other_jdate = JalaliDate.new(1388,9,17)
+  #   some_other_jdate = JalaliDate.new("1390/11/1")
   def initialize *args
     if (args.size == 1) && (args.first.is_a?(Date))
       year,month,day = gregorian_to_jalali(args.first.year, args.first.month, args.first.day)
@@ -41,6 +47,15 @@ class JalaliDate
       @sec  = args.first.sec  || 0
       @zone = args.first.zone || "UTC"
       @utc_offset = args.first.utc_offset  || 0
+    elsif args.size == 1 and args.first.is_a? String
+      m = args.first.match /(?<year>\p{Digit}+)[\/\- ](?<month>\p{Digit}+)[\/\- ](?<day>\p{Digit}+)/u
+      if m
+        year  = m["year"].to_i
+        month = m["month"].to_i
+        day   = m["day"].to_i
+      else
+        raise ArgumentError, "invalid arguments"
+      end
     else
       year,month,day,hour,min,sec,zone,utc_offset = args
     end

@@ -20,6 +20,18 @@ describe JalaliDate do
     jdate.should be_instance_of(JalaliDate)
   end
 
+  it "should initialize with well formated string" do
+    valid_inputs = ["1390/11/16", "1390-11-16", "1390 11 16"]
+    
+    valid_inputs.each do |s|
+      jdate = JalaliDate.new s
+      jdate.should be_instance_of(JalaliDate)
+      jdate.day.should == 16
+      jdate.month.should == 11
+      jdate.year.should == 1390
+    end
+  end
+
   it "should populate attr_accessors for jalali year, month and date and attr_reader for gregorian year,month and date" do
     jdate = JalaliDate.new(1388,11,22)
     jdate.year.should eql(1388)
