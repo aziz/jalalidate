@@ -20,6 +20,21 @@ describe JalaliDate do
     jdate.should be_instance_of(JalaliDate)
   end
 
+  it "should initialize with well formated string" do
+    valid_inputs = [
+      "1390/11/16", "1390-11-16", "1390 11 16",
+      "۱۳۹۰/۱۱/۱۶", "۱۳۹۰-۱۱-۱۶", "۱۳۹۰ ۱۱ ۱۶"
+    ]
+    
+    valid_inputs.each do |s|
+      jdate = JalaliDate.new s
+      jdate.should be_instance_of(JalaliDate)
+      jdate.day.should == 16
+      jdate.month.should == 11
+      jdate.year.should == 1390
+    end
+  end
+
   it "should populate attr_accessors for jalali year, month and date and attr_reader for gregorian year,month and date" do
     jdate = JalaliDate.new(1388,11,22)
     jdate.year.should eql(1388)
@@ -130,18 +145,36 @@ describe JalaliDate do
     JalaliDate.new(time).hour.should == time.hour
   end
 
-  it "should be able for format %H %I %M %p %S %X %Z correctly if initiallized with time" do
-    JalaliDate.new(1388,2,15,5,50,10).strftime("%H").should == "05"
-    JalaliDate.new(1388,2,15,18,50,10).strftime("%H %I").should == "18 06"
-    JalaliDate.new(1388,2,15,12,50,10).strftime("%H %I").should == "12 00"
-    JalaliDate.new(1388,2,15,12,50,10).strftime("%H %I %M %S").should == "12 00 50 10"
-    JalaliDate.new(1388,2,15,5,50,10).strftime("%p").should == "قبل از ظهر"
-    JalaliDate.new(1388,2,15,15,50,10).strftime("%p").should == "بعد از ظهر"
-    JalaliDate.new(1388,2,15,15,50,10).strftime("%X").should == "15:50:10"
-    JalaliDate.new(1388,2,15,15,50,10).strftime("%X").should == "15:50:10"
-    JalaliDate.new(1388,2,15,15,50,10,"CET",3600).strftime("%Z").should == "CET"
-    time = Time.now
-    JalaliDate.new(time).strftime("%Z").should == time.zone
-  end
+  describe "#strftime" do
+    it "should be able for format %H %I %M %p %S %X %Z correctly if initiallized with time" do
+      JalaliDate.new(1388,2,15,5,50,10).strftime("%H").should == "05"
+      JalaliDate.new(1388,2,15,18,50,10).strftime("%H %I").should == "18 06"
+      JalaliDate.new(1388,2,15,12,50,10).strftime("%H %I").should == "12 00"
+      JalaliDate.new(1388,2,15,12,50,10).strftime("%H %I %M %S").should == "12 00 50 10"
+      JalaliDate.new(1388,2,15,5,50,10).strftime("%p").should == "قبل از ظهر"
+      JalaliDate.new(1388,2,15,15,50,10).strftime("%p").should == "بعد از ظهر"
+      JalaliDate.new(1388,2,15,15,50,10).strftime("%X").should == "15:50:10"
+      JalaliDate.new(1388,2,15,15,50,10).strftime("%X").should == "15:50:10"
+      JalaliDate.new(1388,2,15,15,50,10,"CET",3600).strftime("%Z").should == "CET"
+      time = Time.now
+      JalaliDate.new(time).strftime("%Z").should == time.zone
+    end
 
+    it "should return a string with parsi digits if with_parsi_digits option set" do
+      JalaliDate.new(1390,11,16).strftime("%Y/%m/%d", :with_parsi_digits => true).should == "۱۳۹۰/۱۱/۱۶"
+    end
+  end
+end
+
+describe Date, Time, DateTime do
+  it "should convert to jalalidate with to_j method" do
+    date = Date.new(2012,2,5)
+    time = Time.new(2012,2,5,10,20,30)
+    datetime = DateTime.new(2012,2,5,10,20,30)
+    [date, time, datetime].each do |object|
+      object.should respond_to(:to_j)
+      object.to_j.should be_instance_of(JalaliDate)
+      object.to_j.should == JalaliDate.new(object)
+    end
+  end
 end
