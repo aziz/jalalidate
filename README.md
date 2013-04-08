@@ -5,6 +5,9 @@
 
 ## History
 
+#### 0.3.2 - 8.APR.2013
+* Making JalaliDate class thread safe, courtesy of [Jahangir Zinedine](https://github.com/jzinedine)
+
 #### 0.3.1 - 26.APR.2011
 * Added ruby 1.9 compatibility, courtesy of [Reza](https://github.com/ryco)
 
@@ -21,11 +24,11 @@
 * Updated gemspec file for rubygems.org
 * Updated some documentations
 
-#### 0.02 - 08.AUG.2008
+#### 0.02 - 8.AUG.2008
 * Added jalali to geregorian date convertor.
 * Added JalaliDate class and ported Date class method to JalaliDate
 
-#### 0.01 - 07.AUG.2008
+#### 0.01 - 7.AUG.2008
 * Planning the project
 
 
