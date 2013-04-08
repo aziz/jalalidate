@@ -276,6 +276,7 @@ class JalaliDate
   private #-------------------------------------------------------------------------
 
   def gregorian_to_jalali(year, month, day) # :nodoc:
+    jj=0
     gy = year - 1600
     gm = month - 1
     gd = day - 1
@@ -298,19 +299,20 @@ class JalaliDate
     11.times do |i|
       if j_day_no >= JDaysInMonth[i]
         j_day_no -= JDaysInMonth[i]
-        $j = i + 1
+        jj = i + 1
       else
-        $j = i
+        jj = i
         break
       end
     end
-    jm = $j + 1
+    jm = jj + 1
     jd = j_day_no + 1
 
     [jy, jm, jd]
   end
 
   def jalali_to_gregorian(year,month,day) # :nodoc:
+    gg=0
     jy = year - 979
     jm = month - 1
     jd = day - 1
@@ -344,13 +346,13 @@ class JalaliDate
       leap_day = (i==1 && leap) ?  1 : 0
       if g_day_no >= (GDaysInMonth[i] + leap_day )
         g_day_no -= (GDaysInMonth[i] + leap_day )
-        $g = i + 1
+        gg = i + 1
       else
-        $g = i
+        gg = i
         break
       end
     end
-    gm = $g + 1
+    gm = gg + 1
     gd = g_day_no + 1
 
     [gy,gm,gd]
