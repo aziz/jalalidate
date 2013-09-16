@@ -1,25 +1,25 @@
 PATH
   remote: .
   specs:
-    jalalidate (0.3.2)
+    jalalidate (0.2.3)
 
 GEM
   remote: http://rubygems.org/
   specs:
-    diff-lcs (1.2.2)
-    rspec (2.13.0)
-      rspec-core (~> 2.13.0)
-      rspec-expectations (~> 2.13.0)
-      rspec-mocks (~> 2.13.0)
-    rspec-core (2.13.1)
-    rspec-expectations (2.13.0)
-      diff-lcs (>= 1.1.3, < 2.0)
-    rspec-mocks (2.13.1)
+    diff-lcs (1.1.2)
+    rspec (2.1.0)
+      rspec-core (~> 2.1.0)
+      rspec-expectations (~> 2.1.0)
+      rspec-mocks (~> 2.1.0)
+    rspec-core (2.1.0)
+    rspec-expectations (2.1.0)
+      diff-lcs (~> 1.1.2)
+    rspec-mocks (2.1.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  bundler (~> 1.3.0)
+  bundler (~> 1.0.0)
   jalalidate!
-  rspec (~> 2.13.0)
+  rspec (~> 2.1.0)
