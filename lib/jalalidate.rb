@@ -257,6 +257,7 @@ class JalaliDate
       gsub(/%d/, ("%02d" % @day).to_s).
       gsub(/%e/, @day.to_s).
       gsub(/%m/, @month.to_s).
+	  gsub(/%n/, ("%02d" % @month).to_s).
       gsub(/%Y/, @year.to_s).
       gsub(/%y/, @year.to_s.slice(2,2)).
       gsub(/%j/, yday.to_s).
