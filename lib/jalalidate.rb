@@ -256,7 +256,8 @@ class JalaliDate
       gsub(/%B/, PERSIAN_MONTH_NAMES_PINGLISH[@month]).
       gsub(/%d/, ("%02d" % @day).to_s).
       gsub(/%e/, @day.to_s).
-      gsub(/%m/, @month.to_s).
+	  gsub(/%m/, ("%02d" % @month).to_s).
+      gsub(/%n/, @month.to_s).
       gsub(/%Y/, @year.to_s).
       gsub(/%y/, @year.to_s.slice(2,2)).
       gsub(/%j/, yday.to_s).
