@@ -32,9 +32,9 @@ describe JalaliDate do
 
   it "should return today, yesterday, and tomorrow date according to jalali calendar" do
     Date.stub!(:today).and_return(Date.new(2010,1,1))
-    JalaliDate.today.should === JalaliDate.new(1388,10,11)
-    JalaliDate.yesterday.should === JalaliDate.new(1388,10,10)
-    JalaliDate.tomorrow.should === JalaliDate.new(1388,10,12)
+    JalaliDate.today.should == JalaliDate.new(1388,10,11)
+    JalaliDate.yesterday.should == JalaliDate.new(1388,10,10)
+    JalaliDate.tomorrow.should == JalaliDate.new(1388,10,12)
   end
 
   it "should distinguish invalid jalali dates" do
@@ -57,39 +57,39 @@ describe JalaliDate do
 
   it "should convert to string, array and hash correctly" do
     jdate = JalaliDate.new(1388,10,11)
-    jdate.to_s.should === "1388/10/11"
-    jdate.to_a.should === [1388,10,11]
-    jdate.to_hash.should === {:year => 1388, :month => 10, :day => 11}
+    jdate.to_s.should == "1388/10/11"
+    jdate.to_a.should == [1388,10,11]
+    jdate.to_hash.should == {:year => 1388, :month => 10, :day => 11}
   end
 
   it "should be able to add and substract days from the currect jalai date object" do
     jdate = JalaliDate.new(1388,10,11)
     five_days_later = jdate + 5
     twenty_days_ago = jdate - 20
-    five_days_later.should === JalaliDate.new(1388,10,16)
-    twenty_days_ago.should === JalaliDate.new(1388,9,21)
+    five_days_later.should == JalaliDate.new(1388,10,16)
+    twenty_days_ago.should == JalaliDate.new(1388,9,21)
   end
 
   it "should be able to compare two jalali dates" do
     jdate = JalaliDate.new(1388,10,11)
     next_month_jdate = JalaliDate.new(1388,11,11)
-    next_month_jdate.<=>(jdate).should === 1
-    jdate.<=>(next_month_jdate).should === -1
+    next_month_jdate.<=>(jdate).should == 1
+    jdate.<=>(next_month_jdate).should == -1
     jdate.<=>(jdate).should == 0
   end
 
   it "should now its next and previous dates" do
     jdate = JalaliDate.new(1388,10,11)
-    jdate.next.should === JalaliDate.new(1388,10,12)
-    jdate.previous.should === JalaliDate.new(1388,10,10)
+    jdate.next.should == JalaliDate.new(1388,10,12)
+    jdate.previous.should == JalaliDate.new(1388,10,10)
   end
 
   it "should be able to move the month forward and backward" do
     jdate = JalaliDate.new(1388,10,11)
     five_month_later = jdate >> 5
     five_month_ago = jdate << 5
-    five_month_later.should === JalaliDate.new(1389,3,11)
-    five_month_ago.should === JalaliDate.new(1388,5,11)
+    five_month_later.should == JalaliDate.new(1389,3,11)
+    five_month_ago.should == JalaliDate.new(1388,5,11)
   end
 
   it "should be able to cycle through dates in different ways, namely, step, upto and downto" do
@@ -99,13 +99,13 @@ describe JalaliDate do
     jdate.step( jdate + 10 , 2) do |jd|
       days_string += jd.day.to_s
     end
-    days_string.should === "101214161820"
+    days_string.should == "101214161820"
 
     days_string = ""
     jdate.upto(jdate+5) do |jd|
       days_string += jd.day.to_s
     end
-    days_string.should === "101112131415"
+    days_string.should == "101112131415"
 
     days_string = ""
     jdate.downto(jdate-5) do |jd|
@@ -115,10 +115,10 @@ describe JalaliDate do
   end
 
   it "should return a correct year day based on Jalali Calendar" do
-    JalaliDate.new(1388,1,1).yday.should === 1
-    JalaliDate.new(1388,12,29).yday.should === 365
-    JalaliDate.new(1387,12,30).yday.should === 366
-    JalaliDate.new(1388,9,17).yday.should === 263
+    JalaliDate.new(1388,1,1).yday.should == 1
+    JalaliDate.new(1388,12,29).yday.should == 365
+    JalaliDate.new(1387,12,30).yday.should == 366
+    JalaliDate.new(1388,9,17).yday.should == 263
   end
 
   it "should be able to print jalali date in different formats" do
@@ -131,15 +131,15 @@ describe JalaliDate do
   end
 
   it "should be able for format %H %I %M %p %S %X %Z correctly if initiallized with time" do
-    JalaliDate.new(1388,2,15,5,50,10).strftime("%H").should === "05"
-    JalaliDate.new(1388,2,15,18,50,10).strftime("%H %I").should === "18 06"
-    JalaliDate.new(1388,2,15,12,50,10).strftime("%H %I").should === "12 00"
-    JalaliDate.new(1388,2,15,12,50,10).strftime("%H %I %M %S").should === "12 00 50 10"
-    JalaliDate.new(1388,2,15,5,50,10).strftime("%p").should === "قبل از ظهر"
-    JalaliDate.new(1388,2,15,15,50,10).strftime("%p").should === "بعد از ظهر"
-    JalaliDate.new(1388,2,15,15,50,10).strftime("%X").should === "15:50:10"
-    JalaliDate.new(1388,2,15,15,50,10).strftime("%X").should === "15:50:10"
-    JalaliDate.new(1388,2,15,15,50,10,"CET",3600).strftime("%Z").should === "CET"
+    JalaliDate.new(1388,2,15,5,50,10).strftime("%H").should == "05"
+    JalaliDate.new(1388,2,15,18,50,10).strftime("%H %I").should == "18 06"
+    JalaliDate.new(1388,2,15,12,50,10).strftime("%H %I").should == "12 00"
+    JalaliDate.new(1388,2,15,12,50,10).strftime("%H %I %M %S").should == "12 00 50 10"
+    JalaliDate.new(1388,2,15,5,50,10).strftime("%p").should == "قبل از ظهر"
+    JalaliDate.new(1388,2,15,15,50,10).strftime("%p").should == "بعد از ظهر"
+    JalaliDate.new(1388,2,15,15,50,10).strftime("%X").should == "15:50:10"
+    JalaliDate.new(1388,2,15,15,50,10).strftime("%X").should == "15:50:10"
+    JalaliDate.new(1388,2,15,15,50,10,"CET",3600).strftime("%Z").should == "CET"
     time = Time.now
     JalaliDate.new(time).strftime("%Z").should == time.zone
   end
