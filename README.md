@@ -5,6 +5,9 @@
 
 ## History
 
+#### 0.3.3 - 17.SEP.2013
+* added %n formatter for numeric representation of a month, with leading zeros, courtesy of [Mohsen Alizadeh](https://github.com/m0h3n)
+
 #### 0.3.2 - 8.APR.2013
 * Making JalaliDate class thread safe, courtesy of [Jahangir Zinedine](https://github.com/jzinedine)
 

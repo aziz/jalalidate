@@ -232,6 +232,7 @@ class JalaliDate
   # [%e]   Day of the month (1..31)
   # [%j]   Day of the year (1..366)
   # [%m]   Month of the year (1..12)
+  # [%n]   Month of the year (01..12)
   # [%w]   Day of the week (Sunday is 0, 0..6)
   # [%x]   Preferred representation for the date alone, no time in format YY/M/D
   # [%y]   Year without a century (00..99)
@@ -257,7 +258,7 @@ class JalaliDate
       gsub(/%d/, ("%02d" % @day).to_s).
       gsub(/%e/, @day.to_s).
       gsub(/%m/, @month.to_s).
-	  gsub(/%n/, ("%02d" % @month).to_s).
+	    gsub(/%n/, ("%02d" % @month).to_s).
       gsub(/%Y/, @year.to_s).
       gsub(/%y/, @year.to_s.slice(2,2)).
       gsub(/%j/, yday.to_s).
