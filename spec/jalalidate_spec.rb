@@ -140,6 +140,8 @@ describe JalaliDate do
     JalaliDate.new(1388,2,15,15,50,10).strftime("%X").should === "15:50:10"
     JalaliDate.new(1388,2,15,15,50,10).strftime("%X").should === "15:50:10"
     JalaliDate.new(1388,2,15,15,50,10,"CET",3600).strftime("%Z").should === "CET"
+    JalaliDate.new(1388,2,2,5,50,10).strftime("%n").should === "02"
+    JalaliDate.new(1388,2,2,5,50,10).strftime("%m").should === "2"
     time = Time.now
     JalaliDate.new(time).strftime("%Z").should == time.zone
   end
