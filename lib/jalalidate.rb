@@ -83,9 +83,9 @@ class JalaliDate
     # Accpets three numbers for year (4 digit), month and day in jalali calendar and checks if it's a
     # valid date according to jalali calendar or not.
     def valid?(y,m,d)
-      ( y.class == Fixnum && y > 0 &&
-        m.class == Fixnum && (1..12).include?(m) &&
-        d.class == Fixnum &&
+      ( y.class == Integer && y > 0 &&
+        m.class == Integer && (1..12).include?(m) &&
+        d.class == Integer &&
         (
           ((1..JDaysInMonth[m-1]).include?(d)) || (d == 30 && m == 12 && leap?(y))
         )
