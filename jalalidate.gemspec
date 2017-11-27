@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.homepage                  = %q{http://github.com/aziz/jalalidate}
   s.license                   = "MIT"
   s.summary                   = %q{A library for working with Jalali Calendar (a.k.a Persian Calendar)}
-  s.required_rubygems_version = Gem::Requirement.new(">= 2.4") if s.respond_to? :required_rubygems_version=
+  s.required_ruby_version     = '>= 2.4'
   s.rubyforge_project         = "jalalidate"
   s.files                     = `git ls-files`.split("\n")
   s.test_files                = `git ls-files -- {test,spec,features}/*`.split("\n")
