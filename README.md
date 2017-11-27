@@ -1,7 +1,13 @@
 # Jalali Date Library
 
-## Install 
-  gem install jalalidate
+## Install
+
+    $ gem install jalalidate
+
+## Tests
+Simply run `rspec` command in the source directory:
+
+    $ rspec
 
 ## History
 
