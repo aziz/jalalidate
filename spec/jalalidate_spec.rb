@@ -31,23 +31,23 @@ describe JalaliDate do
   end
 
   it "should return today, yesterday, and tomorrow date according to jalali calendar" do
-    Date.stub!(:today).and_return(Date.new(2010,1,1))
+    allow(Date).to receive(:today).and_return Date.new(2010,1,1)
     JalaliDate.today.should === JalaliDate.new(1388,10,11)
     JalaliDate.yesterday.should === JalaliDate.new(1388,10,10)
     JalaliDate.tomorrow.should === JalaliDate.new(1388,10,12)
   end
 
   it "should distinguish invalid jalali dates" do
-    JalaliDate.valid?(1388,13,11).should be_false
-    JalaliDate.valid?(-1388,11,11).should be_false
-    JalaliDate.valid?(1388,1,45).should be_false
-    JalaliDate.valid?(1388,12,30).should be_false
-    JalaliDate.valid?(1387,12,30).should be_true
+    JalaliDate.valid?(1388,13,11).should be_falsey
+    JalaliDate.valid?(-1388,11,11).should be_falsey
+    JalaliDate.valid?(1388,1,45).should be_falsey
+    JalaliDate.valid?(1388,12,30).should be_falsey
+    JalaliDate.valid?(1387,12,30).should be_truthy
   end
 
   it "should distinguish leap years" do
-    JalaliDate.leap?(1387).should be_true
-    JalaliDate.leap?(1388).should be_false
+    JalaliDate.leap?(1387).should be_truthy
+    JalaliDate.leap?(1388).should be_falsey
   end
 
   it "should convert to gregorian date correctly" do
