@@ -241,6 +241,7 @@ class JalaliDate
   # [%I]   Hour of the day, 12-hour clock (01..12)
   # [%M]   Minute of the hour (00..59)
   # [%p]   Meridian indicator ("بعد از ظهر" or "قبل از ظهر")
+  # [%P]   Meridian indicator ("ب.ظ" or "ق.ظ")
   # [%S]   Second of the minute (00..60)
   # [%X]   Preferred representation for the time alone, no date
   # [%Z]   Time zone name
@@ -267,6 +268,7 @@ class JalaliDate
       gsub(/%M/, ("%02d" % @min).to_s).
       gsub(/%S/, ("%02d" % @sec).to_s).
       gsub(/%p/, (@hour>=12 ? "بعد از ظهر" : "قبل از ظهر")).
+      gsub(/%P/, (@hour>=12 ? "ب.ظ" : "ق.ظ")).
       gsub(/%w/, wday.to_s).
       gsub(/%Z/, @zone).
       gsub(/%X/, [("%02d" % @hour),("%02d" % @min),("%02d" % @sec)].join(":")).
