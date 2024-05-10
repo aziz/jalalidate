@@ -9,6 +9,31 @@ Simply run `rspec` command in the source directory:
 
     $ rspec
 
+## Format meanings:
+
+- `[%a]` The abbreviated weekday name (۳ش)
+- `[%A]` The full weekday name (یکشنبه)
+- `[%b]` The month name (اردیبهشت)
+- `[%B]` The month name in pinglish (Ordibehesht)
+- `[%d]` Day of the month (01..31)
+- `[%e]` Day of the month (1..31)
+- `[%j]` Day of the year (1..366)
+- `[%m]` Month of the year (1..12)
+- `[%n]` Month of the year (01..12)
+- `[%w]` Day of the week (Sunday is 0, 0..6)
+- `[%x]` Preferred representation for the date alone, no time in format YY/M/D
+- `[%y]` Year without a century (00..99)
+- `[%Y]` Year with century
+- `[%H]` Hour of the day, 24-hour clock (00..23)
+- `[%I]` Hour of the day, 12-hour clock (01..12)
+- `[%M]` Minute of the hour (00..59)
+- `[%p]` Meridian indicator ("بعد از ظهر" or "قبل از ظهر")
+- `[%P]` Meridian indicator ("ب.ظ" or "ق.ظ")
+- `[%S]` Second of the minute (00..60)
+- `[%X]` Preferred representation for the time alone, no date
+- `[%Z]` Time zone name
+- `[%%]` teral %'' character
+
 ## History
 
 #### 0.3.3 - 17.SEP.2013
